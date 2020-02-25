@@ -11,3 +11,8 @@ RUN export LANGUAGE=en_US:en
 RUN export LC_ALL=en_US.UTF-8
 RUN echo "en_US UTF-8" > /etc/locale.gen
 RUN locale-gen en_US.UTF-8
+
+# Support windows build
+RUN apt-get -y install g++-mingw-w64-x86-64
+RUN update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+RUN update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
