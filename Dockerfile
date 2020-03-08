@@ -1,4 +1,8 @@
 FROM debian:stable
+
+# Add backports for clang
+RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
+
 RUN apt-get -y update
 
 # BCN build requriements
@@ -31,3 +35,6 @@ RUN apt-get -y install autoconf automake curl g++-arm-linux-gnueabihf gcc-arm-li
 
 # Support OSX build
 RUN apt-get -y install python3-setuptools
+
+# Support clang build
+RUN apt-get -y -t buster-backports install clang-8
