@@ -40,7 +40,9 @@ RUN apt-get -y install python3-setuptools
 RUN apt-get -y -t buster-backports install clang-8
 
 # Add tools for static checking & Gitlab CI processing of results
-RUN apt-get -y install git python3-dev python3-pip clang-format-8 arcanist xmlstarlet php-codesniffer shellcheck
+RUN apt-get -y install git python3-dev python3-pip clang-format-8 arcanist xmlstarlet php-codesniffer shellcheck nodejs npm
+RUN npm install npm@latest -g
+RUN npm install -g markdownlint-cli
 
 # Clean up cache
 RUN apt-get clean
