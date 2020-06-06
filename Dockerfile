@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:buster
 
 # Add backports for clang
 RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
