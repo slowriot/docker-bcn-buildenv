@@ -23,7 +23,10 @@ RUN export LANG=en_US.UTF-8
 RUN export LANGUAGE=en_US:en
 RUN export LC_ALL=en_US.UTF-8
 RUN echo "en_US UTF-8" > /etc/locale.gen
-RUN locale-gen en_US.UTF-8
+# Add de_DE.UTF-8 for specific JSON number formatting unit tests
+RUN echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+# Generate all locales
+RUN locale-gen
 
 # Support windows build
 RUN apt-get -y install g++-mingw-w64-x86-64 curl automake autoconf libtool pkg-config
