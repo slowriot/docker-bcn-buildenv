@@ -36,6 +36,9 @@ RUN update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32
 # Support ARM build
 RUN apt-get -y install autoconf automake curl g++-arm-linux-gnueabihf gcc-arm-linux-gnueabihf gperf pkg-config
 
+# Support AArch64 build
+RUN apt-get -y install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu qemu-user-static
+
 # Support OSX build
 RUN apt-get -y install python3-setuptools
 
