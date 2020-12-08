@@ -50,5 +50,8 @@ RUN apt-get -y install git python3-dev python3-pip python3-scipy clang-format-8 
 RUN npm install npm@latest -g
 RUN npm install -g markdownlint-cli
 
+# Linter dependencies
+RUN apt-get -y install flake8
+
 # Clean up cache
 RUN apt-get clean
