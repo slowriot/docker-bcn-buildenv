@@ -51,7 +51,7 @@ RUN npm install npm@latest -g
 RUN npm install -g markdownlint-cli
 
 # Linter dependencies
-RUN pip3 install --no-cache-dir flake8 mypy
+RUN pip3 install --no-cache-dir flake8 mypy yamllint
 
 # Clean up cache
 RUN apt-get clean
