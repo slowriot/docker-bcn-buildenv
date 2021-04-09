@@ -1,7 +1,14 @@
 FROM debian:buster
 
-# Add backports for clang
-RUN echo "deb http://deb.debian.org/debian buster-backports main" >> /etc/apt/sources.list
+RUN apt-get -y update
+RUN apt-get -y install wget apt-utils gnupg
+
+# Add LLVM repos and key (for clang-11)
+RUN echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list
+RUN echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list
+RUN wget --version
+RUN wget -O /etc/llvm-snapshot.gpg.key https://apt.llvm.org/llvm-snapshot.gpg.key
+RUN apt-key add /etc/llvm-snapshot.gpg.key
 
 RUN apt-get -y update
 
@@ -43,10 +50,10 @@ RUN apt-get -y install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu qemu-user-sta
 RUN apt-get -y install python3-setuptools
 
 # Support clang build
-RUN apt-get -y -t buster-backports install clang-8
+RUN apt-get -y install clang-11
 
 # Add tools for static checking & Gitlab CI processing of results
-RUN apt-get -y install git python3-dev python3-pip python3-scipy clang-format-8 arcanist xmlstarlet php-codesniffer shellcheck nodejs npm
+RUN apt-get -y install git python3-dev python3-pip python3-scipy clang-format-11 arcanist xmlstarlet php-codesniffer shellcheck nodejs npm
 RUN npm install npm@latest -g
 RUN npm install -g markdownlint-cli
 
