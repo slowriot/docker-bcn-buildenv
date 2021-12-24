@@ -71,6 +71,7 @@ RUN apt-get -y update && \
     # Add tools for static checking & Gitlab CI processing of results
     arcanist \
     clang-format-11 \
+    eatmydata \
     git \
     nodejs \
     npm \
