@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:latest
 
 # disable installation of suggested and recommended packages
 RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
@@ -18,14 +18,11 @@ RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
     gnupg \
     wget \
     && \
-  # Add LLVM repos and key (for clang-11)
-  echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list && \
-  echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list && \
-  wget -O /etc/llvm-snapshot.gpg.key https://apt.llvm.org/llvm-snapshot.gpg.key 2>&1 && \
-  apt-key add /etc/llvm-snapshot.gpg.key && \
+  # [add any other required repositories to apt sources here]
   # install required packages
-  apt-get -y update && \
-  apt-get upgrade -y && \
+  #apt-get -y update && \
+  #apt-get upgrade -y && \
+  apt-get dist-upgrade -y && \
   apt-get -y install \
     # system and build tools
     apt-utils \
