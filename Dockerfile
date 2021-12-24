@@ -27,6 +27,7 @@ RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
     apt-utils \
     autoconf \
     automake \
+    bash \
     curl \
     gperf \
     libtool \
