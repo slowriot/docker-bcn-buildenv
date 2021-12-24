@@ -69,17 +69,17 @@ RUN apt-get -y update && \
     # Support clang build
     clang-11 \
     # Add tools for static checking & Gitlab CI processing of results
+    arcanist \
+    clang-format-11 \
     git \
+    nodejs \
+    npm \
     python3-dev \
     python3-pip \
     python3-scipy \
-    clang-format-11 \
-    arcanist \
-    xmlstarlet \
     php-codesniffer \
     shellcheck \
-    nodejs \
-    npm \
+    xmlstarlet \
     && \
   # Clean up cache
   apt-get clean && \
