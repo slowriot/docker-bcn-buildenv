@@ -3,6 +3,10 @@ FROM debian:buster
 # disable installation of suggested and recommended packages
 RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
   echo 'APT::Install-Recommends "false";' >> /etc/apt/apt.conf && \
+  # initial package manager config and requirements, silence apt interactive warnings
+  echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+  export DEBIAN_FRONTEND=noninteractive && \
+  export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true && \
   apt-get -y update && \
   apt-get -y install \
     apt-utils \
