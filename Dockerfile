@@ -1,11 +1,16 @@
 FROM debian:buster
 
-# configure the package manager
 # disable installation of suggested and recommended packages
-RUN apt-get -y update && \
+RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
+  echo 'APT::Install-Recommends "false";' >> /etc/apt/apt.conf && \
+  apt-get -y update && \
+  apt-get -y install \
+    apt-utils \
+    && \
   apt-get upgrade -y && \
   # minimal components to allow us to add repos and keys
   apt-get -y install \
+    ca-certificates \
     gnupg \
     wget \
     && \
