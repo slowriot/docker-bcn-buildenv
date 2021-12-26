@@ -1,18 +1,27 @@
 FROM debian:buster
 
-# configure the package manager
 # disable installation of suggested and recommended packages
-RUN apt-get -y update && \
+RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
+  echo 'APT::Install-Recommends "false";' >> /etc/apt/apt.conf && \
+  # initial package manager config and requirements, silence apt interactive warnings
+  echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+  export DEBIAN_FRONTEND=noninteractive && \
+  export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=true && \
+  apt-get -y update && \
+  apt-get -y install \
+    apt-utils \
+    && \
   apt-get upgrade -y && \
   # minimal components to allow us to add repos and keys
   apt-get -y install \
+    ca-certificates \
     gnupg \
     wget \
     && \
   # Add LLVM repos and key (for clang-11)
   echo "deb http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list && \
   echo "deb-src http://apt.llvm.org/buster/ llvm-toolchain-buster-11 main" >> /etc/apt/sources.list && \
-  wget -O /etc/llvm-snapshot.gpg.key https://apt.llvm.org/llvm-snapshot.gpg.key && \
+  wget -O /etc/llvm-snapshot.gpg.key https://apt.llvm.org/llvm-snapshot.gpg.key 2>&1 && \
   apt-key add /etc/llvm-snapshot.gpg.key && \
   # install required packages
   apt-get -y update && \
@@ -22,6 +31,7 @@ RUN apt-get -y update && \
     apt-utils \
     autoconf \
     automake \
+    bash \
     curl \
     gperf \
     libtool \
@@ -94,7 +104,7 @@ RUN apt-get -y update && \
   # Generate all locales
   locale-gen && \
   # Fetch ninja >= 1.10 to get the restat tool
-  wget https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip && \
+  wget https://github.com/ninja-build/ninja/releases/download/v1.10.0/ninja-linux.zip 2>&1 && \
   unzip ninja-linux.zip && \
   cp ./ninja /usr/local/bin/ninja && \
   cp ./ninja /usr/bin/ninja && \
