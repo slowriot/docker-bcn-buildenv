@@ -40,6 +40,7 @@ RUN echo 'APT::Install-Suggests "false";' >> /etc/apt/apt.conf && \
     unzip \
     wget \
     # BCHN build requirements
+    bison \
     bsdmainutils \
     build-essential \
     ccache \
